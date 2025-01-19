@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 
 export interface RoleDocument extends mongoose.Document {
-    role: String;
+    role: string;
 }
 
 const roleSchema = new mongoose.Schema<RoleDocument>({
