@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema<UserDocument>(
         email: { type: String, required: true, index: true, unique: true },
         password: { type: String, required: true },
         nid_picture: { type: String, required: true },
-        role: { type: mongoose.Schema.Types.ObjectId, required: true },
+        role: { type: mongoose.Schema.Types.ObjectId, ref: "Role", required: true },
         verified: { type: Boolean, default: false },
     },
     { timestamps: true }
