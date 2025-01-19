@@ -7,13 +7,15 @@ import connectDB from "./configs/db";
 import errorHandler from "./middlewares/errorHandler"
 import { OK } from "./constants/httpStatusCode";
 import catchError from "./utils/catchError";
-import {PORT} from "./constants/env";
+import { APP_ORIGIN, PORT } from "./constants/env";
 
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+app.use(cors({
+    origin: APP_ORIGIN
+}));
 app.use(cookieParser());
 
 
