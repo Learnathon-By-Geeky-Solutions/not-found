@@ -9,6 +9,7 @@ const handleZodError = (res: Response, error: z.ZodError) => {
         message: err.message
     }));
     return res.status(BAD_REQUEST).json({
+        success: false,
         message: error.message,
         errors
     });
@@ -18,6 +19,7 @@ const handleAppError = (res: Response, error: AppError) => {
     return res
         .status(error.statusCode)
         .json({
+            success: false,
             message: error.message,
             errorCode: error.errorCode
         });

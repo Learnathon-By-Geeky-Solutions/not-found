@@ -15,10 +15,13 @@ export const signupSchema =
         nid_picture: nid_pictureSchema,
         role: roleSchema
     }).refine(
-        data => data.password === data.confirmPassword,
-        {
+        data => data.password === data.confirmPassword, {
             message: "Password and Confirm Password do not match",
             path: ["confirmPassword"]
         });
 
-
+export const loginSchema = z.object({
+    email: emailSchema,
+    password: passwordSchema,
+    userAgent: z.string()
+})
