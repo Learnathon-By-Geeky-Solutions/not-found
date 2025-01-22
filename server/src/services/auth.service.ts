@@ -3,7 +3,7 @@ import appAssert from "../utils/appAssert";
 import { CONFLICT, UNAUTHORIZED } from "../constants/httpStatusCode";
 import { comparePassword } from "../utils/bcrypt";
 import SessionModel from "../models/session.model";
-import {accessTokenSignOptions, refreshTokenSignOptions, signToken} from "../utils/jwt";
+import { getAccessTokenSignOptions, getRefreshTokenSignOptions, signToken} from "../utils/jwt";
 
 type createAccountParams = {
     name: string,
@@ -45,11 +45,11 @@ export const loginUser = async  (userData: loginParams) => {
     const accessToken = signToken({
         userId: user._id as string,
         sessionId: session._id as string },
-        accessTokenSignOptions()
+        getAccessTokenSignOptions()
     );
     const refreshToken = signToken({
         sessionId: session._id as string },
-        refreshTokenSignOptions()
+        getRefreshTokenSignOptions()
     );
     // return tokens
     return { accessToken, refreshToken };

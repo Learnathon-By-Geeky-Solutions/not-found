@@ -14,11 +14,11 @@ export type RefreshTokenType = {
 }
 type signOptionsAndSecret = SignOptions & { secret: string };
 
-export const accessTokenSignOptions = (): signOptionsAndSecret => ({
+export const getAccessTokenSignOptions = (): signOptionsAndSecret => ({
     expiresIn: "15m",
     secret: JWT_SECRET
 })
-export const refreshTokenSignOptions = (): signOptionsAndSecret => ({
+export const getRefreshTokenSignOptions = (): signOptionsAndSecret => ({
     expiresIn: "30d",
     secret: JWT_REFRESH_SECRET
 })
@@ -28,14 +28,19 @@ export const signToken = (payload: AccessTokenType | RefreshTokenType, options: 
 }
 
 type verifyOptionsAndSecret = VerifyOptions & { secret: string };
+export const getAccessTokenVerifyOptions = (): verifyOptionsAndSecret => ({
+    secret: JWT_SECRET
+})
+export const getRefreshTokenVerifyOptions = (): verifyOptionsAndSecret => ({
+    secret: JWT_REFRESH_SECRET
+})
 export const verifyToken = <TPayload extends object>(token: string, options: verifyOptionsAndSecret) => {
     const { secret, ...verifyOptions } = options;
     try{
         const payload = jwt.verify(token, secret, verifyOptions) as TPayload;
         return { payload };
     }
-    catch (error: any) {
-        const err = new appError(UNAUTHORIZED, error.message, appErrorCode.InvalidAccessToken);
-        return { err };
+    catch (err: any) {
+        return { error: err.message };
     }
 }

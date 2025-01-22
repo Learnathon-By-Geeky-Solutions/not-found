@@ -33,5 +33,5 @@ export const loginController = catchError(async  (req, res) => {
 })
 
 export const logoutController = catchError(async  (req, res) => {
-
+    const accessToken = req.cookies.accessToken;
 })
