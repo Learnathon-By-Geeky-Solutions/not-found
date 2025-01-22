@@ -2,7 +2,9 @@ import catchError from "../utils/catchError";
 import { loginSchema, signupSchema } from "./auth.schema";
 import { createAccount, loginUser } from "../services/auth.service";
 import { CREATED, OK } from "../constants/httpStatusCode";
-import {setAuthCookies} from "../utils/cookies";
+import {clearAuthCookies, setAuthCookies} from "../utils/cookies";
+import {AccessTokenType, getAccessTokenVerifyOptions, verifyToken} from "../utils/jwt";
+import SessionModel from "../models/session.model";
 
 
 
@@ -33,5 +35,11 @@ export const loginController = catchError(async  (req, res) => {
 })
 
 export const logoutController = catchError(async  (req, res) => {
-    const accessToken = req.cookies.accessToken;
+    const sessionId = req.sessionId;
+    await SessionModel.findByIdAndDelete(sessionId);
+
+    return clearAuthCookies(res).status(OK).send({
+            success: true,
+            message: "Logged out successfully"
+        })
 })
