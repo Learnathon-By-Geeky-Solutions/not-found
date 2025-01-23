@@ -3,7 +3,15 @@ import appAssert from "../utils/appAssert";
 import { CONFLICT, UNAUTHORIZED } from "../constants/httpStatusCode";
 import { comparePassword } from "../utils/bcrypt";
 import SessionModel from "../models/session.model";
-import { getAccessTokenSignOptions, getRefreshTokenSignOptions, signToken} from "../utils/jwt";
+import {
+    getAccessTokenSignOptions,
+    getRefreshTokenSignOptions,
+    getRefreshTokenVerifyOptions,
+    RefreshTokenType,
+    signToken,
+    verifyToken
+} from "../utils/jwt";
+import {ONE_DAY_IN_MS, thirtyDaysFromNow} from "../utils/date";
 
 type createAccountParams = {
     name: string,
@@ -53,4 +61,29 @@ export const loginUser = async  (userData: loginParams) => {
     );
     // return tokens
     return { accessToken, refreshToken };
+}
+
+export const refreshAccessToken = async (refreshToken: string) => {
+    const { payload } = verifyToken<RefreshTokenType>(refreshToken, getRefreshTokenVerifyOptions());
+    appAssert(payload, UNAUTHORIZED, "Invalid refresh token");
+
+    const session = await SessionModel.findById(payload.sessionId);
+    const now = Date.now();
+    appAssert(session && session.expiresAt.getTime() > now, UNAUTHORIZED, "Session expired" );
+
+    // check if session will expire in 24 hours, then make extend session expiration date and make a new refresh token
+    const sessionNeedsRefresh = session.expiresAt.getTime() - now < ONE_DAY_IN_MS;
+    let newRefreshToken = undefined;
+    if (sessionNeedsRefresh) {
+        session.expiresAt = thirtyDaysFromNow();
+        await session.save();
+        newRefreshToken = signToken({sessionId: session._id as string}, getRefreshTokenSignOptions());
+    }
+
+    const accessToken = signToken({
+        userId: session.userId.toString(),
+        sessionId: session._id as string
+    }, getAccessTokenSignOptions());
+
+    return { accessToken, newRefreshToken };
 }

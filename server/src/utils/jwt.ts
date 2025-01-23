@@ -12,8 +12,8 @@ export type AccessTokenType = {
 export type RefreshTokenType = {
     sessionId: string;
 }
-type signOptionsAndSecret = SignOptions & { secret: string };
 
+type signOptionsAndSecret = SignOptions & { secret: string };
 export const getAccessTokenSignOptions = (): signOptionsAndSecret => ({
     expiresIn: "15m",
     secret: JWT_SECRET
