@@ -37,7 +37,7 @@ userSchema.methods.comparePassword = async function (candidatePassword: string):
     return await comparePassword(candidatePassword, this.password);
 }
 
-userSchema.methods.omitPassword = async function (): Promise<void> {
+userSchema.methods.omitPassword = function (): Promise<void> {
     const user = this.toObject();
     delete user.password;
     delete user.__v;
