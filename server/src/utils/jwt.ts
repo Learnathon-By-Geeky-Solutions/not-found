@@ -1,9 +1,5 @@
 import jwt, {SignOptions, VerifyOptions} from "jsonwebtoken";
 import {JWT_REFRESH_SECRET, JWT_SECRET} from "../constants/env";
-import appError from "./AppError";
-import {UNAUTHORIZED} from "../constants/httpStatusCode";
-import appErrorCode from "../constants/AppErrorCode";
-
 
 export type AccessTokenType = {
     userId: string;
