@@ -1,6 +1,6 @@
 import UserModel from "../models/user.model";
 import appAssert from "../utils/appAssert";
-import { CONFLICT, UNAUTHORIZED } from "../constants/httpStatusCode";
+import { CONFLICT, INTERNAL_SERVER_ERROR, NOT_FOUND, UNAUTHORIZED } from "../constants/httpStatusCode";
 import { comparePassword } from "../utils/bcrypt";
 import SessionModel from "../models/session.model";
 import {
@@ -11,7 +11,12 @@ import {
     signToken,
     verifyToken
 } from "../utils/jwt";
-import {ONE_DAY_IN_MS, thirtyDaysFromNow} from "../utils/date";
+import {ONE_DAY_IN_MS, oneHourFromNow, thirtyDaysFromNow} from "../utils/date";
+import verificationCodeModel from "../models/verificationCode.model";
+import verificationCodeType from "../constants/verificationCodeType";
+import { APP_ORIGIN } from "../constants/env";
+import sendMail from "../utils/sendMail";
+import { getVerifyEmailTemplate } from "../utils/emailTemplates";
 
 type createAccountParams = {
     name: string,
@@ -26,11 +31,20 @@ export const createAccount = async  (userData: createAccountParams):Promise<void
     appAssert(!userExits, CONFLICT, "Email already exists");
     // create a new user
     const user = await UserModel.create(userData);
-    console.log(user);
     // create a verification code
-    // skip for now
+    const verificationCode = await verificationCodeModel.create({
+        userId: user._id,
+        type: verificationCodeType.EmailVerification,
+        expiresAt: oneHourFromNow()
+    });
     // send verification email
-    // skip for now
+    const url = `${APP_ORIGIN}/email/verify/${verificationCode._id}`;
+    const { error } = await sendMail({
+        to: user.email,
+        ...getVerifyEmailTemplate(url),
+    });
+    // ignore email errors for now
+    if (error) console.error(error);
 }
 
 type loginParams = {
@@ -86,4 +100,25 @@ export const refreshAccessToken = async (refreshToken: string) => {
     }, getAccessTokenSignOptions());
 
     return { accessToken, newRefreshToken };
+}
+
+export const verifyEmail = async (code: string) => {
+    const validCode = await verificationCodeModel.findOne({
+        _id: code,
+        type: verificationCodeType.EmailVerification,
+        expiresAt: {$gt: new Date()}
+    })
+    appAssert(validCode, NOT_FOUND, "Invalid or expired verification code");
+
+    const updatedUser = await UserModel.findByIdAndUpdate(
+        validCode.userId,
+        { verified: true },
+        { new: true}
+    );
+    appAssert(updatedUser, INTERNAL_SERVER_ERROR, "Internal Server Error");
+
+    await validCode.deleteOne();
+    return {
+        user: updatedUser.omitPassword()
+    }
 }

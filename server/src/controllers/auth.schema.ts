@@ -6,22 +6,28 @@ export const passwordSchema = z.string().min(6, "Password should be at least 6 c
 export const nid_pictureSchema = z.string();
 export const roleSchema = z.string().min(24).max(24);
 
-export const signupSchema =
-    z.object({
-        name: nameSchema,
-        email: emailSchema,
-        password: passwordSchema,
-        confirmPassword: passwordSchema,
-        nid_picture: nid_pictureSchema,
-        role: roleSchema
-    }).refine(
-        data => data.password === data.confirmPassword, {
-            message: "Password and Confirm Password do not match",
-            path: ["confirmPassword"]
-        });
+export const signupSchema = z.object({
+    name: nameSchema,
+    email: emailSchema,
+    password: passwordSchema,
+    confirmPassword: passwordSchema,
+    nid_picture: nid_pictureSchema,
+    role: roleSchema
+}).refine(
+    data => data.password === data.confirmPassword, {
+        message: "Password and Confirm Password do not match",
+        path: ["confirmPassword"]
+    });
 
 export const loginSchema = z.object({
     email: emailSchema,
     password: passwordSchema,
     userAgent: z.string()
 })
+
+export const verificationCodeSchema = z.string().min(1).max(24)
+
+export const resetPasswordSchema = z.object({
+    password: passwordSchema,
+    verificationCode: verificationCodeSchema
+});

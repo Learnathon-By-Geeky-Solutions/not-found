@@ -1,6 +1,6 @@
 import catchError from "../utils/catchError";
-import { loginSchema, signupSchema } from "./auth.schema";
-import {createAccount, loginUser, refreshAccessToken} from "../services/auth.service";
+import { loginSchema, signupSchema, verificationCodeSchema } from "./auth.schema";
+import {createAccount, loginUser, refreshAccessToken, verifyEmail} from "../services/auth.service";
 import {CREATED, OK, UNAUTHORIZED} from "../constants/httpStatusCode";
 import {
     clearAuthCookies,
@@ -62,4 +62,14 @@ export const refreshController = catchError(async  (req, res) => {
             success: true,
             message: "Access token refreshed"
         })
+})
+
+export const verifyEmailController = catchError(async (req, res) => {
+    const verificationCode = verificationCodeSchema.parse(req.params.code);
+    const { user }  = await verifyEmail(verificationCode);
+    
+    res.status(OK).json({
+        success: true,
+        user
+    })
 })

@@ -3,7 +3,8 @@ import {
     loginController,
     logoutController,
     refreshController,
-    signupController
+    signupController,
+    verifyEmailController
 } from "../../controllers/auth.controller";
 import authenticate from "../../middlewares/authenticate";
 
@@ -13,5 +14,6 @@ authRouter.post("/signup", signupController);
 authRouter.post("/login", loginController);
 authRouter.get("/logout", authenticate, logoutController);
 authRouter.get("/refresh", refreshController);
+authRouter.get("/email/verify/:code", verifyEmailController);
 
 export default authRouter;
