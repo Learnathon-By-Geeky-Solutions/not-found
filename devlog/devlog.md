@@ -18,3 +18,11 @@
 ### MD Taohid Alam
 - [1100] read a web book about **Agile Planning**
 - [1200] read documentaion of React Router Library
+
+# 02/02/2025
+### MD Taohid Alam
+- [1115] read a blog about **SOLID Principles**
+- [1300] practiced **React-Hook-Form with Zod**
+- [1320] read a web book about **Agile Planning**
+- [2000] read a web book about **Agile Planning**
+- [2130] attended Day 3 - Topic-wise Learning Session **(Event Loop)**
