@@ -54,7 +54,7 @@ type loginParams = {
 }
 export const loginUser = async  (userData: loginParams) => {
     // find the user
-    const user = await UserModel.findOne({email: userData.email}).lean();
+    const user = await UserModel.findOne({email: userData.email});
     appAssert(user, UNAUTHORIZED, "Invalid email or password");
     //check if verified or not, if not verified send verification email with new verification code
     // skip for now
@@ -74,7 +74,7 @@ export const loginUser = async  (userData: loginParams) => {
         getRefreshTokenSignOptions()
     );
     // return tokens
-    return { accessToken, refreshToken };
+    return { user: user.omitPassword(), accessToken, refreshToken };
 }
 
 export const refreshAccessToken = async (refreshToken: string) => {

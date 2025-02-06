@@ -19,7 +19,7 @@ export const signupController = catchError(async  (req, res) => {
     // call service to create a new user
     await createAccount(request);
     // return response
-    return res.status(CREATED).send({
+    return res.status(CREATED).json({
         success: true,
         message: "Sign up successfully"
     })
@@ -32,10 +32,11 @@ export const loginController = catchError(async  (req, res) => {
         userAgent: req.headers["user-agent"]
     });
     // call login service
-    const { accessToken, refreshToken } = await loginUser(request);
+    const { user, accessToken, refreshToken } = await loginUser(request);
     // set cookies and send response
-    return setAuthCookies({res, accessToken, refreshToken}).status(OK).send({
-        success: true
+    return setAuthCookies({res, accessToken, refreshToken}).status(OK).json({
+        success: true,
+        user
     })
 })
 
@@ -43,7 +44,7 @@ export const logoutController = catchError(async  (req, res) => {
     const sessionId = req.sessionId;
     await SessionModel.findByIdAndDelete(sessionId);
 
-    return clearAuthCookies(res).status(OK).send({
+    return clearAuthCookies(res).status(OK).json({
             success: true,
             message: "Logged out successfully"
         })
