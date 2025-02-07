@@ -32,12 +32,11 @@ export const loginController = catchError(async  (req, res) => {
         userAgent: req.headers["user-agent"]
     });
     // call login service
-    const { user, accessToken, refreshToken } = await loginUser(request);
+    const { accessToken, refreshToken } = await loginUser(request);
     // set cookies and send response
     return setAuthCookies({res, accessToken, refreshToken}).status(OK).json({
-        success: true,
-        user
-    })
+        success: true
+    });
 })
 
 export const logoutController = catchError(async  (req, res) => {
