@@ -1,11 +1,15 @@
-
+import { Routes, Route } from 'react-router'
+import Login from './pages/Login'
+import Signup from './pages/Signup'
+import Dashboard from './pages/Dashboard'
 function App() {
 
   return (
-    <>
-      <h1 className="text-3xl text-red-200">Test</h1>
-      <p className="text-lg font-semibold">Test</p>
-    </>
+    <Routes>
+      <Route path="/" element={<Dashboard />}/>
+      <Route path="/login" element={<Login />}/>
+      <Route path="/signup" element={<Signup />}/>
+    </Routes>
   )
 }
 
