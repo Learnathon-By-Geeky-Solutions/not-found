@@ -26,3 +26,24 @@
 - [1320] read a web book about **Agile Planning**
 - [2000] read a web book about **Agile Planning**
 - [2130] attended Day 3 - Topic-wise Learning Session **(Event Loop)**
+
+# 03/02/2025
+### MD Taohid Alam
+- [1315] worked on Learnathon's project
+
+# 04/02/2025
+### MD Taohid Alam
+- [1000] read documentaion of react-router library
+
+# 05/02/2025
+### MD Taohid Alam
+- [] got stuck on learnathon's project's client side
+
+# 06/02/2025
+### MD Taohid Alam
+- [] decided to start over learnathon's project's client side
+
+# 07/02/2025
+### MD Taohid Alam
+- [1900] attended Learnathon Session **(Version control with git)**
+- [2100] worked on Learnathon's project
