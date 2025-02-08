@@ -47,3 +47,8 @@
 ### MD Taohid Alam
 - [1900] attended Learnathon Session **(Version control with git)**
 - [2100] worked on Learnathon's project
+
+# 07/02/2025
+### MD Taohid Alam
+- [1900] read a web book about **Agile Planning** 
+- [2045] attended Learnathon Session
