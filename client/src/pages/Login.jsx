@@ -1,6 +1,6 @@
 import { useState } from "react";
-import axios from 'axios';
 import { useNavigate } from 'react-router'
+import { login } from "../lib/api";
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -9,8 +9,7 @@ const Login = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const response = await axios.post("http://localhost:4004/api/v1/auth/login", {email, password}, {withCredentials: true});
-            console.log(response);
+            const response = await login({email, password});
             if(response && response.data.success) {
                 setEmail("");
                 setPassword("");
