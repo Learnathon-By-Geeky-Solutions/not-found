@@ -66,10 +66,9 @@ export const refreshController = catchError(async  (req, res) => {
 
 export const verifyEmailController = catchError(async (req, res) => {
     const verificationCode = verificationCodeSchema.parse(req.params.code);
-    const { user }  = await verifyEmail(verificationCode);
+    await verifyEmail(verificationCode);
     
     res.status(OK).json({
-        success: true,
-        user
+        success: true
     })
 })

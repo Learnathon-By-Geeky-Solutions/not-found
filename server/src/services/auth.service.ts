@@ -117,7 +117,4 @@ export const verifyEmail = async (code: string) => {
     appAssert(updatedUser, INTERNAL_SERVER_ERROR, "Internal Server Error");
 
     await validCode.deleteOne();
-    return {
-        user: updatedUser.omitPassword()
-    }
 }
