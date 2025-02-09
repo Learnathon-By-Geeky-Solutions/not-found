@@ -9,7 +9,6 @@ import errorHandler from "./middlewares/errorHandler"
 import { OK } from "./constants/httpStatusCode";
 import catchError from "./utils/catchError";
 import { APP_ORIGIN, PORT } from "./constants/env";
-import { populateDbWithRoles } from "./configs/populateDb";
 import apiRouter from "./routes/api.router";
 
 const app = express();
@@ -18,7 +17,8 @@ app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({
-    origin: APP_ORIGIN
+    origin: APP_ORIGIN,
+    credentials: true
 }));
 app.use(cookieParser());
 
@@ -40,5 +40,4 @@ app.use(errorHandler);
 app.listen(PORT, async () => {
     console.log(`Server started on port ${PORT}`);
     await connectDB();
-    await populateDbWithRoles();
 });

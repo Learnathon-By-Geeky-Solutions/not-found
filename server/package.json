@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node-dev --files src/index.ts"
+    "dev": "ts-node-dev --files src/index.ts",
+    "seed": "ts-node-dev src/seeders/role.seeder.ts"
   },
   "keywords": [],
   "author": "",
