@@ -9,7 +9,6 @@ import errorHandler from "./middlewares/errorHandler"
 import { OK } from "./constants/httpStatusCode";
 import catchError from "./utils/catchError";
 import { APP_ORIGIN, PORT } from "./constants/env";
-import { populateDbWithRoles } from "./configs/populateDb";
 import apiRouter from "./routes/api.router";
 
 const app = express();
@@ -41,5 +40,4 @@ app.use(errorHandler);
 app.listen(PORT, async () => {
     console.log(`Server started on port ${PORT}`);
     await connectDB();
-    await populateDbWithRoles();
 });
