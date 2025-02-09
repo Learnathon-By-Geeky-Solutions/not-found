@@ -5,6 +5,8 @@ import { login } from "../lib/api";
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [errors, setErrors] = useState([]);
+    const [error, setError] = useState("");
     const navigate = useNavigate();
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -16,7 +18,14 @@ const Login = () => {
                 navigate('/');
             }
         } catch (error) {
-            console.log(error.response.data.errors);
+            if(error.response.data.errors) {
+                setErrors(error.response.data.errors);
+                setError("");
+             }
+             else {
+                setError(error.response.data.message);
+                setErrors([]);
+             }
         }
     }
   
@@ -34,7 +43,8 @@ const Login = () => {
                 <label htmlFor="password" className="font-semibold">Password</label>
                 <input type="password" id="password" name="password" className="px-4 py-2 bg-white rounded" value={password} onChange={(e) => setPassword(e.target.value)}/>
             </div>
-
+            {error && <p className="text-red-400">{error}</p>}
+            {errors && errors.map(err => <p key={err.path} className="text-red-400">{err.message}</p>)}
             <button type="submit"  className="cursor-pointer border border-black py-2 rounded bg-red-400 mt-4">Submit</button>
         </form>
     </div>
