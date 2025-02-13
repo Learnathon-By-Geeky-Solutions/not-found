@@ -1,30 +1,32 @@
 import { useEffect, useState } from "react"
-import { Link } from "react-router"
+import { replace, useNavigate,  } from "react-router"
 import { profile } from "../lib/api"
+import Unassigned from "../components/Unassigned"
+import Tenant from "../components/Tenant"
+import Owner from "../components/Owner"
+import Manager from "../components/Manager"
+import Staff from "../components/Staff"
 
 const Dashboard = () => {
-  
+  const navigate = useNavigate();
   const [user, setUser] = useState({});
   useEffect(() => {
     const fetchData = async () => {
       try {
         const { data } = await profile();
         setUser(data.user);
-      } catch (error) {
-        console.log(error.response.data.message);
+      } catch {
+        navigate("/login", replace);
       }
     }
     fetchData();
   }, []);
 
-  return (
-    <div className="min-h-screen flex flex-col justify-center items-center space-y-4">
-      <Link to="/login" className="p-4 bg-sky-950 font-semibold text-white rounded-2xl">login</Link>
-      <Link to="/signup" className="p-4 bg-sky-950 font-semibold text-white rounded-2xl">signup</Link>
-      <p>{user.email}</p>
-      <p>{user.role}</p>
-    </div>
-  )
+  if(user.role === "67a842c7973d729e15c1dadb") return <Unassigned  {...user}/>
+  if(user.role === "67a842c7973d729e15c1dade") return <Tenant  user={user}/>
+  if(user.role === "67a842c8973d729e15c1dae1") return <Owner  {...user}/>
+  if(user.role === "67a842c8973d729e15c1dae4") return <Manager  user={user}/>
+  if(user.role === "67a842c8973d729e15c1dae7") return <Staff  user={user}/>
 }
 
 export default Dashboard
