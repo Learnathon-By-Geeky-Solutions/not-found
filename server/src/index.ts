@@ -3,6 +3,7 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import helmet from "helmet";
+import sanitize from 'express-mongo-sanitize';
 
 import connectDB from "./configs/db";
 import errorHandler from "./middlewares/errorHandler"
@@ -15,6 +16,7 @@ const app = express();
 
 app.use(helmet());
 app.use(express.json());
+app.use(sanitize());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({
     origin: APP_ORIGIN,
