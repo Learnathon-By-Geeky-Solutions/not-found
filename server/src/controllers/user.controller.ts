@@ -39,7 +39,8 @@ export const getUser = catchError(async (req, res) => {
 export const updateRole = catchError(async (req, res) => {
     const id = req.params.id;
     const { roleTitle } = req.body;
-    const role = await RoleModel.findOne({role: roleTitle});
+    const query = {role: roleTitle.toString()};
+    const role = await RoleModel.findOne(query);
     appAssert(role, NOT_FOUND, "Role not found");
     const roleId = role._id;
     const user = await UserModel.findByIdAndUpdate(id, { role: roleId });
