@@ -20,13 +20,13 @@ const seedRoles = async () => {
             await RoleModel.create({role: "unassigned"});
         }
 
-        const tentant = await RoleModel.findOne({role: "tentant"});
-        if(tentant){
-            console.log("Skiping tentant role...");
+        const tenant = await RoleModel.findOne({role: "tenant"});
+        if(tenant){
+            console.log("Skiping tenant role...");
         }
         else {
             console.log("Creating tentant role...");
-            await RoleModel.create({role: "tentant"});
+            await RoleModel.create({role: "tenant"});
         }
 
         const owner = await RoleModel.findOne({role: "owner"});
