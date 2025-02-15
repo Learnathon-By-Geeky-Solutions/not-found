@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 
 export interface ApartmentDocument extends mongoose.Document {
     name: string;
-    owenerId: mongoose.Types.ObjectId;
+    ownerId: mongoose.Types.ObjectId;
 }
 
 const apartmentSchema = new mongoose.Schema<ApartmentDocument>({
@@ -12,7 +12,7 @@ const apartmentSchema = new mongoose.Schema<ApartmentDocument>({
         required: true,
         unique: true
     },
-    owenerId: {
+    ownerId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
         required: true
