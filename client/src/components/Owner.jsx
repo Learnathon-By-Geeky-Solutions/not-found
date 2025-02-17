@@ -31,7 +31,10 @@ const Owner = ({email, name}) => {
       <div>
         <h2>Manage user role</h2>
         { users.map(user => (<div key={user._id}>
-          <p className="p-2 my-2">{user.name}    Role: {RoleTitle[user.role]}  <Link to={`/user/${user._id}`} className="border">Change Role</Link></p>
+          <p className="p-2 my-2">{user.name}    Role: {RoleTitle[user.role]}  
+          <Link to={`/user/${user._id}`} className="border">Change Role</Link>
+          <Link to={`/lease/${user._id}`} className="border ml-2">Make lease</Link>
+          </p>
           </div>))}
       </div>
     </div>

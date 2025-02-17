@@ -12,3 +12,7 @@ export const profile = async () => API.get("user/profile");
 export const getUsers = async () => API.get("user");
 export const getUser = async (id) => API.get(`user/${id}`);
 export const updateRole = async (id, data) => API.put(`user/${id}`, data);
+
+
+
+export const createLease = async data => API.post("lease", data);
