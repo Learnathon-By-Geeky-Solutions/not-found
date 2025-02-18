@@ -49,6 +49,11 @@ const Login = () => {
             <div><p>Don&apos;t have an account?</p> <Link to="/signup" className="font-semibold text-red-400">Register</Link></div>
             <button type="submit"  className="cursor-pointer border border-black py-2 rounded bg-red-400 mt-4">Submit</button>
         </form>
+        <div>
+            <p>For full access use this account</p>
+            <p>email: test@test.com</p>
+            <p>password: 123123</p>
+        </div>
     </div>
   )
 }

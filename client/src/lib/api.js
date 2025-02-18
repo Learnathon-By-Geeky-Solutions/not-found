@@ -16,3 +16,5 @@ export const updateRole = async (id, data) => API.put(`user/${id}`, data);
 
 
 export const createLease = async data => API.post("lease", data);
+
+export const getApartments = async () => API.get("apartment");
