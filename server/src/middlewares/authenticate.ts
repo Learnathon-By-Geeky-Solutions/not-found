@@ -7,7 +7,6 @@ import {AccessTokenType, getAccessTokenVerifyOptions, verifyToken} from "../util
 
 const authenticate: RequestHandler = (req, res, next) => {
     const accessToken = req.cookies.accessToken as string | undefined;
-    console.log(accessToken);
     appAssert(accessToken, UNAUTHORIZED, "Not authorized", AppErrorCode.InvalidAccessToken);
 
     const { error, payload } = verifyToken<AccessTokenType>(accessToken, getAccessTokenVerifyOptions());

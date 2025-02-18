@@ -9,7 +9,7 @@ import connectDB from "./configs/db";
 import errorHandler from "./middlewares/errorHandler"
 import { OK } from "./constants/httpStatusCode";
 import catchError from "./utils/catchError";
-import { APP_ORIGIN, NODE_ENV, PORT } from "./constants/env";
+import { APP_ORIGIN, PORT } from "./constants/env";
 import apiRouter from "./routes/api.router";
 
 const app = express();
@@ -24,7 +24,6 @@ app.use(cors({
 }));
 app.use(cookieParser());
 
-console.log(NODE_ENV);
 app.get("/health", catchError(
     async (req, res) => {
         res.status(OK)
