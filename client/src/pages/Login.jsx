@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from 'react-router'
+import { Link, useNavigate } from 'react-router'
 import { login } from "../lib/api";
 
 const Login = () => {
@@ -18,7 +18,8 @@ const Login = () => {
                 navigate('/');
             }
         } catch (error) {
-            if(error.response.data.errors) {
+            console.log(error)
+            if(error.response?.data.errors) {
                 setErrors(error.response.data.errors);
                 setError("");
              }
@@ -45,6 +46,7 @@ const Login = () => {
             </div>
             {error && <p className="text-red-400">{error}</p>}
             {errors && errors.map(err => <p key={err.path} className="text-red-400">{err.message}</p>)}
+            <div><p>Don&apos;t have an account?</p> <Link to="/signup" className="font-semibold text-red-400">Register</Link></div>
             <button type="submit"  className="cursor-pointer border border-black py-2 rounded bg-red-400 mt-4">Submit</button>
         </form>
     </div>

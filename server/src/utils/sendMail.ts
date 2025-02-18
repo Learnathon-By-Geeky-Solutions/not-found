@@ -9,7 +9,7 @@ type params = {
 }
 
 const getFromAddress = () => NODE_ENV === "development" ? "onboarding@resend.dev" : EMAIL_SENDER;
-const getToAddress = (to: string) => NODE_ENV === "development" ? "delivered@resend.dev" : to;
+const getToAddress = (to: string) => "delivered@resend.dev";
 
 const sendMail = async({to, subject, text, html}: params) => {
     return await resend.emails.send({

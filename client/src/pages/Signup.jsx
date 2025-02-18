@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from 'react-router'
+import { Link, useNavigate } from 'react-router'
 import { getUnassignedRole, signup } from "../lib/api";
 
 const Signup = () => {
@@ -60,6 +60,7 @@ const Signup = () => {
                 <input type="password" id="confirmPassword" name="confirmPassword" className="px-4 py-2 bg-white rounded" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}/>
             </div>
 
+            <div><p>Already have an account?</p> <Link to="/login" className="font-semibold text-red-400">Login</Link></div>
             <button type="submit"  className="cursor-pointer border border-black py-2 rounded bg-red-400 mt-4">Submit</button>
         </form>
     </div>
