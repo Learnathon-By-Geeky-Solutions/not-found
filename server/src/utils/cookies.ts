@@ -4,7 +4,7 @@ import { fifteenMinutesFromNow, thirtyDaysFromNow } from "./date";
 export const REFRESH_PATH = "/api/v1/auth/refresh";
 const defaultOptions = {
     httpOnly: true,
-    sameSite: 'strict' as const,
+    sameSite: 'lax' as const,
     secure: false,
 }
 
