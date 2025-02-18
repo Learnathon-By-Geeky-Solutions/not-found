@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "ts-node-dev --files src/index.ts",
     "build": "tsc",
-    "prod": "SET NODE_ENV=production && node dist/index.js",
+    "prod": "node dist/index.js",
     "seed-role": "ts-node-dev src/seeders/role.seeder.ts",
     "seed-apartment": "ts-node-dev src/seeders/apartment.seeder.ts",
     "seed": "npm run seed-role && npm run seed-apartment"
