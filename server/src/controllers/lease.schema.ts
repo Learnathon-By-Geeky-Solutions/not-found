@@ -6,3 +6,7 @@ export const leaseSchema = z.object({
     rent: z.number().min(0, "Rent cannot be negetive"),
     startMonth: z.coerce.date()
 })
+
+export const updateLeaseSchema = z.object({
+    rent: z.number().min(0, "Rent cannot be negetive")
+})
