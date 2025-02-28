@@ -57,3 +57,13 @@
 ### MD Taohid Alam
 - [1200] worked on Learnathon's project
 - [1745] worked on Learnathon's project
+
+# 27/02/2025
+### MD Taohid Alam
+- [2000] worked on Learnathon's project
+
+
+# 28/02/2025
+### MD Taohid Alam
+- [1000] started preparing for AI hackathon by Poridhi and Brain Station 23
+- [1210] worked on Learnathon's project
