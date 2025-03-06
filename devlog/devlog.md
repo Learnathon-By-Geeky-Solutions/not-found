@@ -67,3 +67,11 @@
 ### MD Taohid Alam
 - [1000] started preparing for AI hackathon by Poridhi and Brain Station 23
 - [1210] worked on Learnathon's project
+
+# 03/03/2025
+### MD Taohid Alam
+- [2000] learned basics of LLM
+
+# 06/03/2025
+### MD Taohid Alam
+- [1230] learned docker
